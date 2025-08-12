@@ -1,7 +1,7 @@
 import App from "./App";
 import User from "./layouts/User";
 import Auth from "./layouts/Auth";
-// import Cart from "./pages/cart/Cart";
+import Cart from "./pages/cart/Cart";
 import Login from "./pages/auth/Login";
 // import NotFound from "./pages/NotFound";
 // import Order from "./pages/order/Order";
@@ -23,7 +23,7 @@ const router = createBrowserRouter([
       { path: "/", element: <App /> },
       { path: "/product", element: <Product /> },
       { path: "/product/:id", element: <ShowProduct /> },
-      // { path: "/cart", element: <Cart /> },
+      { path: "/cart", element: <Cart /> },
       // { path: "/order", element: <Order /> },
       // { path: "/order/:id", element: <OrderItem /> },
     ],

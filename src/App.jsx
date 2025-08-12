@@ -6,7 +6,7 @@ const App = () => {
 
   return (
     <>
-      <div className="container mt-5">
+      <div className="container my-5">
         <div className="card bg-light">
           <div className="card-body">
             {user ? (

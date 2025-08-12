@@ -74,7 +74,7 @@ const Login = () => {
       <div className="mb-4">
         <h3 className="fw-bold">Masuk Akun</h3>
         <p className="fw-semibold mb-0">
-          Selamat datang kembali di Mini E-commerce.
+          Selamat datang kembali di <Link to={"/"}>Mini E-commerce</Link>.
         </p>
       </div>
 

@@ -69,8 +69,8 @@ const Register = () => {
       <div className="mb-4">
         <h3 className="fw-bold">Daftar Akun</h3>
         <p className="fw-semibold mb-0">
-          Selamat datang di Mini E-commerce, silahkan membuat akun dan melakukan
-          pesanan.
+          Selamat datang di <Link to={"/"}>Mini E-commerce</Link>, silahkan
+          membuat akun dan melakukan pesanan.
         </p>
       </div>
 
