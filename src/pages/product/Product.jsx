@@ -56,7 +56,7 @@ const Product = () => {
 
   return (
     <>
-      <div className="container mt-5">
+      <div className="container my-5">
         {/* Filter */}
         <form className="row g-3 mb-4">
           <div className="col-12 col-md-6">
