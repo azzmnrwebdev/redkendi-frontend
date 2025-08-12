@@ -3,11 +3,12 @@ import Nav from "react-bootstrap/Nav";
 import useAuth from "../hooks/useAuth";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
-import { Link, useNavigate } from "react-router-dom";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const NavbarComponent = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { user, token, logout } = useAuth();
   const userName = user?.name || null;
 
@@ -32,6 +33,14 @@ const NavbarComponent = () => {
     }
   };
 
+  const isActive = (path, exact = true) => {
+    if (exact) {
+      return location.pathname === path;
+    }
+
+    return location.pathname.startsWith(path);
+  };
+
   return (
     <Navbar expand="lg" bg="dark" data-bs-theme="dark">
       <Container>
@@ -41,20 +50,32 @@ const NavbarComponent = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="/">
+            <Nav.Link as={Link} to="/" active={isActive("/")}>
               Home
             </Nav.Link>
-            <Nav.Link as={Link} to="/product">
+            <Nav.Link
+              as={Link}
+              to="/product"
+              active={isActive("/product", false)}
+            >
               Product
             </Nav.Link>
           </Nav>
           {userName && (
             <Nav className="ms-auto">
               <NavDropdown title={userName} id="basic-nav-dropdown">
-                <NavDropdown.Item as={Link} to="/cart">
+                <NavDropdown.Item
+                  as={Link}
+                  to="/cart"
+                  active={isActive("/cart")}
+                >
                   Cart
                 </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/order">
+                <NavDropdown.Item
+                  as={Link}
+                  to="/order"
+                  active={isActive("/order", false)}
+                >
                   Order
                 </NavDropdown.Item>
                 <NavDropdown.Item onClick={handleLogout}>
