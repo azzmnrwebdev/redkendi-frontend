@@ -6,7 +6,7 @@ import Login from "./pages/auth/Login";
 // import NotFound from "./pages/NotFound";
 // import Order from "./pages/order/Order";
 import Register from "./pages/auth/Register";
-// import Product from "./pages/product/Product";
+import Product from "./pages/product/Product";
 import "bootstrap/dist/css/bootstrap.min.css";
 // import OrderItem from "./pages/order/OrderItem";
 // import ShowProduct from "./pages/product/ShowProduct";
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
     element: <User />,
     children: [
       { path: "/", element: <App /> },
-      // { path: "/product", element: <Product /> },
+      { path: "/product", element: <Product /> },
       // { path: "/product/:id", element: <ShowProduct /> },
       // { path: "/cart", element: <Cart /> },
       // { path: "/order", element: <Order /> },
