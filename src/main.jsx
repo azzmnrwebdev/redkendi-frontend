@@ -8,7 +8,7 @@ import Order from "./pages/order/Order";
 import Register from "./pages/auth/Register";
 import Product from "./pages/product/Product";
 import "bootstrap/dist/css/bootstrap.min.css";
-// import OrderItem from "./pages/order/OrderItem";
+import OrderItem from "./pages/order/OrderItem";
 import ShowProduct from "./pages/product/ShowProduct";
 
 import { StrictMode } from "react";
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
       { path: "/product/:id", element: <ShowProduct /> },
       { path: "/cart", element: <Cart /> },
       { path: "/order", element: <Order /> },
-      // { path: "/order/:id", element: <OrderItem /> },
+      { path: "/order/:id", element: <OrderItem /> },
     ],
   },
   {

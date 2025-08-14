@@ -116,6 +116,7 @@ const Product = () => {
                     )}`}
                     className="card-img-top"
                     alt={product.name}
+                    style={{ objectFit: "cover", height: "200px" }}
                   />
                   <div className="card-body d-flex flex-column">
                     <h5 className="card-title">{product.name}</h5>
