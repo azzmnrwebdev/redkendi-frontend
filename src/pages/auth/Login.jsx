@@ -1,11 +1,12 @@
 import api from "../../api";
-import { useEffect, useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
+import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const hasShownToast = useRef(false);
 
   const [email, setEmail] = useState("");
   const [errors, setErrors] = useState({});
@@ -13,8 +14,9 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (location.state?.toastMessage) {
+    if (location.state?.toastMessage && !hasShownToast.current) {
       toast.success(location.state.toastMessage);
+      hasShownToast.current = true;
 
       navigate(location.pathname, { replace: true, state: {} });
     }
@@ -141,9 +143,6 @@ const Login = () => {
           Belum punya akun? <Link to="/register">Daftar disini</Link>
         </div>
       </form>
-
-      {/* Toast Container */}
-      <ToastContainer theme="colored" />
     </>
   );
 };

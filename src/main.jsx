@@ -4,7 +4,7 @@ import Auth from "./layouts/Auth";
 import Cart from "./pages/cart/Cart";
 import Login from "./pages/auth/Login";
 // import NotFound from "./pages/NotFound";
-// import Order from "./pages/order/Order";
+import Order from "./pages/order/Order";
 import Register from "./pages/auth/Register";
 import Product from "./pages/product/Product";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -13,6 +13,7 @@ import ShowProduct from "./pages/product/ShowProduct";
 
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { ToastContainer } from "react-toastify";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const router = createBrowserRouter([
@@ -24,7 +25,7 @@ const router = createBrowserRouter([
       { path: "/product", element: <Product /> },
       { path: "/product/:id", element: <ShowProduct /> },
       { path: "/cart", element: <Cart /> },
-      // { path: "/order", element: <Order /> },
+      { path: "/order", element: <Order /> },
       // { path: "/order/:id", element: <OrderItem /> },
     ],
   },
@@ -50,5 +51,6 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <RouterProvider router={router} />
+    <ToastContainer theme="colored" />
   </StrictMode>
 );

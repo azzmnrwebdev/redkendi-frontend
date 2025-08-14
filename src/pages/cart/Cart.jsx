@@ -11,10 +11,13 @@ const Cart = () => {
   const hasShownToast = useRef(false);
 
   const { token } = useAuth();
+  const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(true);
   const [cartItems, setCartItems] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [updatingId, setUpdatingId] = useState(null);
+  const [paymentMethod, setPaymentMethod] = useState("");
+  const [shippingAddress, setShippingAddress] = useState("");
 
   useEffect(() => {
     if (location.state?.toastMessage && !hasShownToast.current) {
@@ -102,6 +105,44 @@ const Cart = () => {
     setShowModal(false);
   };
 
+  const handleOrder = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("shipping_address", shippingAddress);
+      formData.append("payment_method", paymentMethod);
+
+      await api.post("/orders", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      handleCloseModal();
+
+      navigate("/order", {
+        state: { toastMessage: "Pesanan berhasil dibuat." },
+      });
+    } catch (error) {
+      if (error.response) {
+        const { status, data } = error.response;
+
+        if (status === 422 && data.detail) {
+          const validationErrors = {};
+
+          data.detail.forEach((err) => {
+            const field = err.loc[1];
+            const cleanMsg = err.msg.replace(/^Value error, /i, "");
+            validationErrors[field] = cleanMsg;
+          });
+
+          setErrors(validationErrors);
+        } else {
+          console.log(error);
+        }
+      }
+    }
+  };
+
   return (
     <>
       <div className="container my-5">
@@ -154,7 +195,67 @@ const Cart = () => {
         <Modal.Header closeButton>
           <Modal.Title>Form Order</Modal.Title>
         </Modal.Header>
-        <Modal.Body>{/* Body kosong dulu */}</Modal.Body>
+        <Modal.Body>
+          <form className="row g-3" onSubmit={(e) => e.preventDefault()}>
+            <div className="col-12">
+              <label htmlFor="shipping_address" className="form-label">
+                Alamat
+              </label>
+              <textarea
+                id="shipping_address"
+                className={`form-control ${
+                  errors.shipping_address ? "is-invalid" : ""
+                }`}
+                rows={5}
+                placeholder="Masukkan alamat pengiriman..."
+                value={shippingAddress}
+                onChange={(e) => setShippingAddress(e.target.value)}
+              ></textarea>
+              {errors.shipping_address && (
+                <div className="invalid-feedback">
+                  {errors.shipping_address}
+                </div>
+              )}
+            </div>
+
+            <div className="col-12">
+              <label htmlFor="payment_method" className="form-label">
+                Pembayaran
+              </label>
+              <select
+                id="payment_method"
+                className={`form-select ${
+                  errors.payment_method ? "is-invalid" : ""
+                }`}
+                value={paymentMethod}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+              >
+                <option value="" disabled>
+                  Pilih metode pembayaran
+                </option>
+                <option value="Qris">Qris</option>
+                <option value="Indomart">Indomart</option>
+                <option value="Alfamart">Alfamart</option>
+                <option value="BRI">Transfer Bank - BRI</option>
+                <option value="BCA">Transfer Bank - BCA</option>
+                <option value="Mandiri">Transfer Bank - Mandiri</option>
+              </select>
+              {errors.payment_method && (
+                <div className="invalid-feedback">{errors.payment_method}</div>
+              )}
+            </div>
+
+            <div className="col-12">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={handleOrder}
+              >
+                Pesan sekarang
+              </button>
+            </div>
+          </form>
+        </Modal.Body>
       </Modal>
     </>
   );
