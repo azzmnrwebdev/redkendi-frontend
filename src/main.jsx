@@ -1,6 +1,7 @@
 import App from "./App";
 import User from "./layouts/User";
 import Auth from "./layouts/Auth";
+import Forbidden from "./Forbidden";
 import Cart from "./pages/cart/Cart";
 import Login from "./pages/auth/Login";
 // import NotFound from "./pages/NotFound";
@@ -10,6 +11,7 @@ import Product from "./pages/product/Product";
 import "bootstrap/dist/css/bootstrap.min.css";
 import OrderItem from "./pages/order/OrderItem";
 import ShowProduct from "./pages/product/ShowProduct";
+import ProtectedRoute from "./middleware/ProtectedRoute";
 
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
@@ -24,9 +26,30 @@ const router = createBrowserRouter([
       { path: "/", element: <App /> },
       { path: "/product", element: <Product /> },
       { path: "/product/:id", element: <ShowProduct /> },
-      { path: "/cart", element: <Cart /> },
-      { path: "/order", element: <Order /> },
-      { path: "/order/:id", element: <OrderItem /> },
+      {
+        path: "/cart",
+        element: (
+          <ProtectedRoute>
+            <Cart />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/order",
+        element: (
+          <ProtectedRoute>
+            <Order />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/order/:id",
+        element: (
+          <ProtectedRoute>
+            <OrderItem />
+          </ProtectedRoute>
+        ),
+      },
     ],
   },
   {
@@ -45,6 +68,7 @@ const router = createBrowserRouter([
       </Auth>
     ),
   },
+  { path: "/forbidden", element: <Forbidden /> },
   // { path: "*", element: <NotFound /> },
 ]);
 

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 export default function useAuth() {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
@@ -16,6 +17,7 @@ export default function useAuth() {
           const user = JSON.parse(userData);
           setUser(user);
           setToken(token);
+          setLoading(false);
           return;
         } catch {
           // parse error
@@ -28,6 +30,7 @@ export default function useAuth() {
     localStorage.removeItem("user_data");
     setUser(null);
     setToken(null);
+    setLoading(false);
   }, []);
 
   function logout() {
@@ -38,5 +41,5 @@ export default function useAuth() {
     setToken(null);
   }
 
-  return { user, token, logout };
+  return { user, token, loading, logout };
 }
