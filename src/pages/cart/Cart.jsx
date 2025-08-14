@@ -236,9 +236,11 @@ const Cart = () => {
                 <option value="Qris">Qris</option>
                 <option value="Indomart">Indomart</option>
                 <option value="Alfamart">Alfamart</option>
-                <option value="BRI">Transfer Bank - BRI</option>
-                <option value="BCA">Transfer Bank - BCA</option>
-                <option value="Mandiri">Transfer Bank - Mandiri</option>
+                <option value="Transfer Bank - BRI">Transfer Bank - BRI</option>
+                <option value="Transfer Bank - BCA">Transfer Bank - BCA</option>
+                <option value="Transfer Bank - Mandiri">
+                  Transfer Bank - Mandiri
+                </option>
               </select>
               {errors.payment_method && (
                 <div className="invalid-feedback">{errors.payment_method}</div>
